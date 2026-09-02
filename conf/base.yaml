@@ -1,0 +1,57 @@
+data:
+  path: /home/hassan/jbhi/physionet.org/files/challenge-2019/1.0.0/training/
+  num_clients: 10
+  seed: 0
+
+model:
+  input_size: 11
+  hidden_size: 128
+  num_layers: 2
+  output_size: 1
+  dropout: 0.3
+  window_size: 12
+
+federated:
+  num_rounds: 50
+  local_epochs: 1
+  learning_rate: 0.0005
+  batch_size: 256
+  eval_every: 5
+  capacity: 6
+
+acuity:
+  threshold_percentile: 85
+  beta_1: 0.4
+  beta_2: 0.3
+  beta_3: 0.3
+
+mobility:
+  urban_p_disconnect: 0.05
+  urban_p_reconnect: 0.6
+  rural_p_disconnect: 0.15
+  rural_p_reconnect: 0.3
+  ntn_latency_ms: 600
+  terrestrial_latency_ms: 20
+  gamma: 0.5
+
+staleness:
+  lambda_decay: 0.1
+
+connectivity_regimes:
+  full_coverage:
+    urban_p_disconnect: 0.0
+    rural_p_disconnect: 0.0
+  mixed:
+    urban_p_disconnect: 0.05
+    rural_p_disconnect: 0.15
+  stress:
+    urban_p_disconnect: 0.15
+    rural_p_disconnect: 0.35
+
+baselines:
+  - fedavg
+  - staleness_aware
+  - acuity_agnostic
+  - proposed
+
+num_trials: 10
